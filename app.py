@@ -80,7 +80,7 @@ html, body, [class*="css"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 70px;
+    margin-bottom: 45px;
 }
 
 .logo {
@@ -122,7 +122,7 @@ html, body, [class*="css"] {
     font-size: 11px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    margin-bottom: 28px;
+    margin-bottom: 18px;
 }
 
 .eyebrow-line {
@@ -410,7 +410,7 @@ default_reduction = 25
 reduction_potential = (top_activity_emission * default_reduction / 100) / total_emissions * 100
 
 leak_events = len(leaks)
-esg_score = max(0, min(100, round(100 - highest_contribution)))
+carbon_risk_score = round(highest_contribution)
 
 st.html("""
 <div class="top-nav">
@@ -467,9 +467,9 @@ st.html(f"""
                 <div class="control-value">{leak_events}</div>
             </div>
 
-            <div class="control-box">
-                <div class="control-label">Highest Emitter</div>
-                <div class="control-value">{highest_emitter}</div>
+        <div class="control-box">
+                <div class="control-label">Carbon Risk Score</div>
+                <div class="control-value">{carbon_risk_score}/100</div>
             </div>
 
             <div class="control-box">
@@ -501,9 +501,9 @@ st.html(f"""
         <div class="metric-value">{leak_events}</div>
     </div>
     <div class="metric-card">
-        <div class="metric-label">Reduction Potential ↗</div>
-        <div class="metric-value">{reduction_potential:.1f}%</div>
-    </div>
+    <div class="metric-label">Carbon Risk Score ↗</div>
+    <div class="metric-value">{carbon_risk_score}/100</div>
+</div>
 </div>
 """)
 
