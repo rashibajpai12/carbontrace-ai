@@ -34,7 +34,7 @@ html, body, [class*="css"] {
 
 .block-container {
     max-width: 1320px;
-    padding: 1.6rem 3rem 3rem 3rem;
+    padding: 1.4rem 3rem 3rem 3rem;
 }
 
 [data-testid="stSidebar"] {
@@ -110,8 +110,8 @@ html, body, [class*="css"] {
     grid-template-columns: 1.2fr 0.8fr;
     gap: 34px;
     align-items: center;
-    min-height: 370px;
-    margin-bottom: 30px;
+    min-height: 320px;
+    margin-bottom: 18px;
 }
 
 .eyebrow {
@@ -467,9 +467,9 @@ st.html(f"""
                 <div class="control-value">{leak_events}</div>
             </div>
 
-        <div class="control-box">
-                <div class="control-label">Carbon Risk Score</div>
-                <div class="control-value">{carbon_risk_score}/100</div>
+            <div class="control-box">
+                <div class="control-label">Highest Emitter</div>
+                <div class="control-value">{highest_emitter}</div>
             </div>
 
             <div class="control-box">
@@ -478,8 +478,8 @@ st.html(f"""
             </div>
 
             <div class="control-box">
-                <div class="control-label">ESG Readiness</div>
-                <div class="control-value">{esg_score}/100</div>
+                <div class="control-label">Carbon Risk Score</div>
+                <div class="control-value">{carbon_risk_score}/100</div>
             </div>
         </div>
     </div>
@@ -501,9 +501,9 @@ st.html(f"""
         <div class="metric-value">{leak_events}</div>
     </div>
     <div class="metric-card">
-    <div class="metric-label">Carbon Risk Score ↗</div>
-    <div class="metric-value">{carbon_risk_score}/100</div>
-</div>
+        <div class="metric-label">Carbon Risk Score ↗</div>
+        <div class="metric-value">{carbon_risk_score}/100</div>
+    </div>
 </div>
 """)
 
