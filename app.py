@@ -1,4 +1,5 @@
 import streamlit as st
+from agents.simulator_agent import simulate_reduction
 from agents.root_cause_agent import analyze_root_cause
 import pandas as pd
 import plotly.express as px
@@ -66,6 +67,46 @@ if st.button("Analyze Carbon Leakage"):
     st.write(
         f"Emission Source: {result['driver']}"
     )
+    st.markdown("## What-If Carbon Reduction Simulator")
+
+activity_choice = st.selectbox(
+    "Select activity to reduce",
+    df["activity_type"].unique()
+)
+
+reduction_percent = st.slider(
+    "Reduction percentage",
+    0,
+    100,
+    25
+)
+
+simulation = simulate_reduction(
+    df,
+    activity_choice,
+    reduction_percent
+)
+
+c1, c2, c3 = st.columns(3)
+
+c1.metric(
+    "Current Activity Emissions",
+    f"{simulation['current_emission']:,.0f} kg CO₂e"
+)
+
+c2.metric(
+    "Emissions Saved",
+    f"{simulation['saved_emission']:,.0f} kg CO₂e"
+)
+
+c3.metric(
+    "Total Projected Emissions",
+    f"{simulation['total_projected']:,.0f} kg CO₂e"
+)
+
+st.success(
+    f"Reducing {activity_choice} by {reduction_percent}% can reduce total emissions by {simulation['saving_percent']}%."
+)
 
     report = generate_recommendations(
         df,
