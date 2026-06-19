@@ -1,6 +1,7 @@
 import streamlit as st
 from agents.simulator_agent import simulate_reduction
 from agents.root_cause_agent import analyze_root_cause
+from agents.roadmap_agent import generate_roadmap
 import pandas as pd
 import plotly.express as px
 
