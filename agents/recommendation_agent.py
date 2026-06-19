@@ -60,12 +60,22 @@ A **25% reduction** in emissions from **{highest_dept}** can reduce emissions by
 
 Projected department emissions after reduction: **{projected_emission:.2f} kg CO2e**.
 
-## 5. 90-Day Action Plan
-- Prioritize emission reduction in **{highest_dept}**.
-- Target the main emission driver: **{highest_activity}**.
-- Set a 25% reduction target for the highest-emission department.
-- Review operational policies linked to the highest-emission activity.
-- Track weekly progress using department-wise carbon metrics.
+## 5. Carbon Reduction Roadmap
+
+Month 1
+- Audit all Sales travel activities
+- Identify top 20% highest-emission trips
+
+Month 2
+- Replace internal travel with virtual meetings
+- Introduce travel approval threshold
+
+Month 3
+- Achieve 25% reduction target
+- Validate reduction against baseline emissions
+
+Expected Result:
+8625 kg CO₂e reduction
 
 ## 6. Net-Zero Recommendation
 Start with the highest-emission department before expanding reduction plans across other departments. This creates the fastest measurable reduction and improves near-term ESG performance.
