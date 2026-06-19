@@ -620,6 +620,19 @@ with tab4:
 
 api_key = st.secrets.get("GEMINI_API_KEY")
 
+if not api_key:
+    st.error("Gemini API key not configured in Streamlit Secrets.")
+    st.stop()
+
+st.markdown("## ESG Intelligence Report")
+
+if st.button("Generate ESG Recommendations"):
+
+    report = generate_recommendations(
+        df,
+        api_key
+    )
+
 st.markdown("## ESG Intelligence Report")
 
 if st.button("Generate ESG Recommendations"):
