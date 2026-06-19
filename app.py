@@ -375,7 +375,7 @@ locations = df["location"].nunique()
 
 st.html("""
 <div class="top-nav">
-    <div class="logo">carbontrace ●</div>
+    <div class="logo">CarbonTrace ●</div>
     <div class="nav-links">
         <span>Leak Detection</span>
         <span>ESG Report</span>
