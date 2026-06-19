@@ -1,0 +1,11 @@
+date,department,activity_type,units,emission_factor,cost,location
+2026-01-01,Operations,Electricity,1200,0.82,18000,Delhi
+2026-01-02,Logistics,Diesel Transport,450,2.68,24000,Noida
+2026-01-03,IT,Cloud Usage,900,0.42,30000,Bangalore
+2026-01-04,HR,Employee Commute,700,0.21,12000,Delhi
+2026-01-05,Sales,Business Travel,80,150,75000,Mumbai
+2026-01-06,Admin,Paper Usage,300,0.09,4000,Delhi
+2026-01-07,Logistics,Diesel Transport,900,2.68,46000,Noida
+2026-01-08,IT,Cloud Usage,1400,0.42,52000,Bangalore
+2026-01-09,Operations,Electricity,1900,0.82,31000,Delhi
+2026-01-10,Sales,Business Travel,150,150,135000,Mumbai
