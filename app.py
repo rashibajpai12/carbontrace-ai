@@ -126,3 +126,14 @@ if st.button("Generate ESG Recommendations"):
     )
 
     st.markdown(report)
+
+if st.button("Generate Net-Zero Roadmap"):
+
+    roadmap = generate_roadmap(
+        df,
+        api_key
+    )
+
+    st.markdown("## Net-Zero Roadmap")
+
+    st.write(roadmap)
