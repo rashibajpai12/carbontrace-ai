@@ -179,7 +179,6 @@ html, body, [class*="css"] {
     color: #F4F4F1;
 }
 
-/* Carbon visual */
 .carbon-card {
     border: 1px solid rgba(255,255,255,0.09);
     background: radial-gradient(circle at top right, rgba(210,232,210,0.12), transparent 38%),
@@ -196,65 +195,76 @@ html, body, [class*="css"] {
     font-size: 14px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    margin-bottom: 28px;
+    margin-bottom: 22px;
 }
 
-.tree-scene {
-    height: 190px;
+.control-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.control-box {
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.035);
+    border-radius: 18px;
+    padding: 18px;
+}
+
+.control-label {
+    color: #8F8F8F;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.control-value {
+    color: #F4F4F1;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+.tree-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(221,232,216,0.35), transparent);
+    margin: 24px 0;
+}
+
+.mini-forest {
+    display: flex;
+    gap: 18px;
+    align-items: end;
+    height: 56px;
+}
+
+.mini-tree {
+    width: 24px;
+    height: 48px;
     position: relative;
 }
 
-.tree {
+.mini-tree:before {
+    content: "";
     position: absolute;
     bottom: 0;
-    width: 70px;
-    height: 140px;
+    left: 10px;
+    width: 5px;
+    height: 27px;
+    border-radius: 10px;
+    background: rgba(221,232,216,0.65);
 }
 
-.trunk {
+.mini-tree:after {
+    content: "";
     position: absolute;
-    bottom: 0;
-    left: 31px;
-    width: 8px;
-    height: 65px;
-    background: #DDE8D8;
-    opacity: 0.75;
-    border-radius: 8px;
-}
-
-.leaf {
-    position: absolute;
-    background: rgba(221,232,216,0.85);
+    top: 0;
+    left: 1px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
-    box-shadow: 0 0 45px rgba(221,232,216,0.13);
-}
-
-.leaf.a { width: 54px; height: 54px; left: 8px; top: 18px; }
-.leaf.b { width: 48px; height: 48px; left: 28px; top: 42px; }
-.leaf.c { width: 42px; height: 42px; left: 0px; top: 58px; }
-
-.tree.one { left: 20px; transform: scale(0.92); }
-.tree.two { left: 140px; transform: scale(1.18); }
-.tree.three { right: 28px; transform: scale(0.82); }
-
-.carbon-line {
-    position: absolute;
-    left: 18px;
-    right: 18px;
-    bottom: 42px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(221,232,216,0.4), transparent);
-}
-
-.carbon-stat {
-    position: absolute;
-    bottom: 22px;
-    left: 30px;
-    right: 30px;
-    display: flex;
-    justify-content: space-between;
-    color: #8F8F8F;
-    font-size: 12px;
+    background: rgba(221,232,216,0.88);
+    box-shadow: 13px 10px 0 rgba(221,232,216,0.68), -8px 13px 0 rgba(221,232,216,0.62);
 }
 
 .metric-strip {
@@ -290,38 +300,49 @@ html, body, [class*="css"] {
 
 .metric-value {
     margin-top: 24px;
-    font-size: 36px;
+    font-size: 34px;
     font-weight: 800;
     letter-spacing: -0.06em;
 }
 
-.panel-title {
-    font-size: 24px;
-    font-weight: 750;
-    letter-spacing: -0.04em;
-    margin-bottom: 14px;
-}
-
-.panel {
+.brief-card {
     border: 1px solid rgba(255,255,255,0.09);
     background: rgba(255,255,255,0.025);
-    border-radius: 26px;
-    padding: 22px;
+    border-radius: 28px;
+    padding: 28px;
+    margin-bottom: 34px;
 }
 
-.agent-row {
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-    padding: 13px 0;
-    color: #D8D8D8;
-    font-size: 15px;
+.brief-title {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    margin-bottom: 18px;
 }
 
-.agent-row:last-child {
-    border-bottom: none;
+.brief-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
 }
 
-.dot {
-    color: #DDE8D8;
+.brief-item {
+    border-left: 1px solid rgba(221,232,216,0.35);
+    padding-left: 16px;
+}
+
+.brief-label {
+    color: #8F8F8F;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 8px;
+}
+
+.brief-value {
+    color: #F4F4F1;
+    font-size: 16px;
+    font-weight: 700;
 }
 
 .stTabs [data-baseweb="tab-list"] {
@@ -368,14 +389,32 @@ with st.sidebar:
 df = pd.read_csv("carbon_activity_data.csv")
 df = calculate_emissions(df)
 
+hotspots = identify_hotspots(df)
+leaks = detect_leaks(df)
+
 total_emissions = df["total_emission"].sum()
 departments = df["department"].nunique()
 activities = df["activity_type"].nunique()
 locations = df["location"].nunique()
 
+dept_emissions = df.groupby("department")["total_emission"].sum().sort_values(ascending=False)
+highest_emitter = dept_emissions.index[0]
+highest_emission = dept_emissions.iloc[0]
+highest_contribution = (highest_emission / total_emissions) * 100
+
+activity_emissions = df.groupby("activity_type")["total_emission"].sum().sort_values(ascending=False)
+top_activity = activity_emissions.index[0]
+top_activity_emission = activity_emissions.iloc[0]
+
+default_reduction = 25
+reduction_potential = (top_activity_emission * default_reduction / 100) / total_emissions * 100
+
+leak_events = len(leaks)
+esg_score = max(0, min(100, round(100 - highest_contribution)))
+
 st.html("""
 <div class="top-nav">
-    <div class="logo">CarbonTrace ●</div>
+    <div class="logo">carbontrace ●</div>
     <div class="nav-links">
         <span>Leak Detection</span>
         <span>ESG Report</span>
@@ -386,7 +425,7 @@ st.html("""
 </div>
 """)
 
-st.html("""
+st.html(f"""
 <div class="hero">
     <div>
         <div class="eyebrow">
@@ -395,13 +434,13 @@ st.html("""
         </div>
 
         <div class="hero-title">
-            Carbon Leaks, <span>Detected.</span>
+            Operational Emissions, <span>Explained.</span>
         </div>
 
         <div class="hero-desc">
             CarbonTrace identifies emission hotspots, detects carbon leakage,
-            explains operational root causes, and generates ESG-ready reduction
-            strategies for sustainability teams.
+            explains root causes, and estimates reduction impact before ESG teams
+            commit to sustainability actions.
         </div>
 
         <div class="hero-actions">
@@ -411,36 +450,37 @@ st.html("""
     </div>
 
     <div class="carbon-card">
-        <div class="carbon-title">Carbon Intelligence Layer</div>
+        <div class="carbon-title">Carbon Intelligence Control Center</div>
 
-        <div class="tree-scene">
-            <div class="carbon-line"></div>
-
-            <div class="tree one">
-                <div class="trunk"></div>
-                <div class="leaf a"></div>
-                <div class="leaf b"></div>
-                <div class="leaf c"></div>
-            </div>
-
-            <div class="tree two">
-                <div class="trunk"></div>
-                <div class="leaf a"></div>
-                <div class="leaf b"></div>
-                <div class="leaf c"></div>
-            </div>
-
-            <div class="tree three">
-                <div class="trunk"></div>
-                <div class="leaf a"></div>
-                <div class="leaf b"></div>
-                <div class="leaf c"></div>
-            </div>
+        <div class="mini-forest">
+            <div class="mini-tree"></div>
+            <div class="mini-tree" style="transform:scale(1.2);"></div>
+            <div class="mini-tree" style="transform:scale(0.9);"></div>
+            <div class="mini-tree" style="transform:scale(1.05);"></div>
         </div>
 
-        <div class="carbon-stat">
-            <span>Emission Hotspots</span>
-            <span>ESG Actions</span>
+        <div class="tree-line"></div>
+
+        <div class="control-grid">
+            <div class="control-box">
+                <div class="control-label">Carbon Leakage Alerts</div>
+                <div class="control-value">{leak_events}</div>
+            </div>
+
+            <div class="control-box">
+                <div class="control-label">Highest Emitter</div>
+                <div class="control-value">{highest_emitter}</div>
+            </div>
+
+            <div class="control-box">
+                <div class="control-label">Reduction Potential</div>
+                <div class="control-value">{reduction_potential:.1f}%</div>
+            </div>
+
+            <div class="control-box">
+                <div class="control-label">ESG Readiness</div>
+                <div class="control-value">{esg_score}/100</div>
+            </div>
         </div>
     </div>
 </div>
@@ -453,22 +493,47 @@ st.html(f"""
         <div class="metric-value">{total_emissions:,.0f}</div>
     </div>
     <div class="metric-card">
-        <div class="metric-label">Departments ↗</div>
-        <div class="metric-value">{departments}</div>
+        <div class="metric-label">Highest Emitter ↗</div>
+        <div class="metric-value">{highest_emitter}</div>
     </div>
     <div class="metric-card">
-        <div class="metric-label">Activities ↗</div>
-        <div class="metric-value">{activities}</div>
+        <div class="metric-label">Leak Events ↗</div>
+        <div class="metric-value">{leak_events}</div>
     </div>
     <div class="metric-card">
-        <div class="metric-label">Locations ↗</div>
-        <div class="metric-value">{locations}</div>
+        <div class="metric-label">Reduction Potential ↗</div>
+        <div class="metric-value">{reduction_potential:.1f}%</div>
     </div>
 </div>
 """)
 
-hotspots = identify_hotspots(df)
-leaks = detect_leaks(df)
+st.html(f"""
+<div class="brief-card">
+    <div class="brief-title">AI Carbon Brief</div>
+
+    <div class="brief-grid">
+        <div class="brief-item">
+            <div class="brief-label">Primary Hotspot</div>
+            <div class="brief-value">{highest_emitter}</div>
+        </div>
+
+        <div class="brief-item">
+            <div class="brief-label">Carbon Driver</div>
+            <div class="brief-value">{top_activity}</div>
+        </div>
+
+        <div class="brief-item">
+            <div class="brief-label">Contribution</div>
+            <div class="brief-value">{highest_contribution:.1f}% of total emissions</div>
+        </div>
+
+        <div class="brief-item">
+            <div class="brief-label">Suggested Action</div>
+            <div class="brief-value">Reduce {top_activity} by 25%</div>
+        </div>
+    </div>
+</div>
+""")
 
 tab1, tab2, tab3, tab4 = st.tabs([
     "Carbon Hotspots",
