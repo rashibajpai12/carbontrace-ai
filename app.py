@@ -108,6 +108,17 @@ st.success(
     f"Reducing {activity_choice} by {reduction_percent}% can reduce total emissions by {simulation['saving_percent']}%."
 )
 
+if st.button("Generate ESG Recommendations"):
+
+    report = generate_recommendations(
+        df,
+        api_key
+    )
+
+    st.markdown("## ESG Recommendations")
+
+    st.write(report)
+
     report = generate_recommendations(
         df,
         api_key
