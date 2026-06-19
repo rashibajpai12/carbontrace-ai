@@ -414,7 +414,7 @@ esg_score = max(0, min(100, round(100 - highest_contribution)))
 
 st.html("""
 <div class="top-nav">
-    <div class="logo">carbontrace ●</div>
+    <div class="logo">CarbonTrace ●</div>
     <div class="nav-links">
         <span>Leak Detection</span>
         <span>ESG Report</span>
