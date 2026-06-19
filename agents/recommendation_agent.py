@@ -1,11 +1,4 @@
-import google.generativeai as genai
-
-
-def generate_recommendations(df, api_key):
-    genai.configure(api_key=api_key)
-
-    model = genai.GenerativeModel("gemini-2.5-flash")
-
+def generate_recommendations(df, api_key=None):
     total_emissions = df["total_emission"].sum()
 
     dept_emissions = (
@@ -43,57 +36,39 @@ def generate_recommendations(df, api_key):
     else:
         risk_level = "Low"
 
-    prompt = f"""
-You are CarbonTrace AI, a sustainability intelligence agent.
+    report = f"""
+# CarbonTrace AI – ESG Carbon Intelligence Report
 
-Generate a professional ESG carbon intelligence report using ONLY the numbers below.
+## 1. Executive Summary
+The highest carbon risk is concentrated in the **{highest_dept}** department, which contributes **{contribution_percent:.2f}%** of total emissions.
 
-Company Carbon Summary:
-Total emissions: {total_emissions:.2f} kg CO2e
+## 2. Carbon Risk Level
+**Risk Level:** {risk_level}
 
-Highest emitting department:
-{highest_dept}
+Total company emissions are **{total_emissions:.2f} kg CO2e**.  
+The highest emitting department, **{highest_dept}**, produces **{highest_dept_emission:.2f} kg CO2e**.
 
-Highest department emissions:
-{highest_dept_emission:.2f} kg CO2e
+## 3. Evidence from Data
+- Highest emitting department: **{highest_dept}**
+- Department emissions: **{highest_dept_emission:.2f} kg CO2e**
+- Highest emitting activity: **{highest_activity}**
+- Activity emissions: **{highest_activity_emission:.2f} kg CO2e**
+- Contribution to total emissions: **{contribution_percent:.2f}%**
 
-Highest emitting activity:
-{highest_activity}
+## 4. Quantified Reduction Potential
+A **25% reduction** in emissions from **{highest_dept}** can reduce emissions by approximately **{potential_reduction:.2f} kg CO2e**.
 
-Highest activity emissions:
-{highest_activity_emission:.2f} kg CO2e
+Projected department emissions after reduction: **{projected_emission:.2f} kg CO2e**.
 
-Contribution of highest department:
-{contribution_percent:.2f}%
+## 5. 90-Day Action Plan
+- Prioritize emission reduction in **{highest_dept}**.
+- Target the main emission driver: **{highest_activity}**.
+- Set a 25% reduction target for the highest-emission department.
+- Review operational policies linked to the highest-emission activity.
+- Track weekly progress using department-wise carbon metrics.
 
-Carbon risk level:
-{risk_level}
-
-Reduction scenario:
-Reduce emissions from {highest_dept} by {reduction_percent}%
-
-Potential reduction:
-{potential_reduction:.2f} kg CO2e
-
-Projected emissions after reduction:
-{projected_emission:.2f} kg CO2e
-
-Generate the report in this structure:
-
-1. Executive Summary
-2. Carbon Risk Level
-3. Evidence from Data
-4. Quantified Reduction Potential
-5. 90-Day Action Plan
-6. Net-Zero Recommendation
-
-Rules:
-- Be specific.
-- Use the exact numbers provided.
-- Avoid generic advice.
-- Keep it business-ready.
+## 6. Net-Zero Recommendation
+Start with the highest-emission department before expanding reduction plans across other departments. This creates the fastest measurable reduction and improves near-term ESG performance.
 """
 
-    response = model.generate_content(prompt)
-
-    return response.text
+    return report
