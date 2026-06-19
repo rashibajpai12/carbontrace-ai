@@ -633,15 +633,6 @@ if st.button("Generate ESG Recommendations"):
         api_key
     )
 
-st.markdown("## ESG Intelligence Report")
-
-if st.button("Generate ESG Recommendations"):
-
-    report = generate_recommendations(
-        df,
-        api_key
-    )
-
     st.markdown(report)
 
     st.download_button(
