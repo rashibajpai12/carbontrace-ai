@@ -49,9 +49,23 @@ api_key = st.secrets.get(
     "GEMINI_API_KEY"
 )
 
-if st.button(
-    "Generate ESG Recommendations"
-):
+if st.button("Analyze Carbon Leakage"):
+
+    result = analyze_root_cause(df)
+
+    st.markdown("## Root Cause Analysis")
+
+    st.write(
+        f"Highest emitter: {result['department']}"
+    )
+
+    st.write(
+        f"Contribution: {result['contribution']}%"
+    )
+
+    st.write(
+        f"Emission Source: {result['driver']}"
+    )
 
     report = generate_recommendations(
         df,
